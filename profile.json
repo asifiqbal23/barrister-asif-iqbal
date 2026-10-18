@@ -1,0 +1,93 @@
+{
+  "name": "Md Asif Iqbal",
+  "updated": "18 October 2026",
+  "email": "asif.iqbal.uel@gmail.com",
+  "phone": "+880 1730 720784",
+  "location": "Dhaka, Bangladesh",
+  "summary": "Bangladesh-qualified advocate and English-trained barrister with experience in corporate transactions, banking and finance, competition law, litigation and arbitration. His work includes legal due diligence, transaction and security documents, regulatory submissions and hearing preparation, working with senior advocates and international counsel.",
+  "qualifications": [
+    ["20 May 2026", "Advocate, Supreme Court of Bangladesh", "High Court Division"],
+    ["2021", "Advocate, Bangladesh Bar Council", "Enrolled to practise in the subordinate courts"],
+    ["2018", "Barrister-at-Law, Lincoln’s Inn", "Called to the Bar of England and Wales"]
+  ],
+  "education": [
+    ["2017", "University of Law, London", "Bar Professional Training Course — Competent; Postgraduate Diploma in Professional Legal Skills — 62%"],
+    ["2014", "University of East London", "LL.B. (Honours) — Upper Second Class (2:1), 62%"],
+    ["2010", "University of London International Programmes", "Diploma in Law — 2:2, 52%"]
+  ],
+  "employment": [
+    ["Nov 2022–present", "Dr. Kamal Hossain & Associates", "Associate, Dhaka"],
+    ["Jan–Oct 2022", "Dr. Kamal Hossain & Associates", "Intern, Dhaka"],
+    ["Mar–Aug 2021", "Novartis (Bangladesh) Limited", "Apprentice–Legal"],
+    ["Jan 2018–Mar 2019", "Supreme Law Chambers", "Associate"]
+  ],
+  "groups": [
+    {
+      "id": "transactions", "title": "Corporate transactions", "description": "Acquisitions, investments, restructuring and cross-border due diligence.",
+      "items": [
+        {"title":"Coca-Cola İçecek acquisition","meta":"US$130 million • 100% stake • 2023–2024","text":"Worked in the Bangladesh co-counsel team on the acquisition of Coca-Cola Bangladesh Beverages Limited. Prepared the Bangladesh due diligence report, drafted local transaction documents and assisted with share-transfer registration and Competition Commission representations."},
+        {"title":"PwC Project Meridian","meta":"Cross-border share acquisition • 2026","text":"Prepared Bangladesh due diligence on PricewaterhouseCoopers Bangladesh Private Limited for the proposed acquisition by PwC US Group LLP. Reviewed shareholding, title, charges and financing restrictions, and prepared warranty inputs and local transfer advice with Khaitan & Co."},
+        {"title":"Deloitte Bangladesh share transfer","meta":"Proposed transfer of 100% shareholding • 2026","text":"Reviewed and revised the share-transfer agreement for transfers by Deloitte’s Indian entities to partners of affiliate firms. Addressed transfer mechanics, escrow, retransfer restrictions, enforceability, valuation and repatriation."},
+        {"title":"Social enterprise restructuring","meta":"Three social enterprises • 2025–2026","text":"Prepared due diligence and advice for a major NGO on a proposed court-sanctioned scheme of arrangement, asset and liability transfers and valuation. Worked on employee transfers, continuity of service, accrued rights, novation and statutory funds."},
+        {"title":"Softlogic Life Insurance PLC","meta":"Proposed US$1.9 million acquisition • 60% stake • 2025–2026","text":"Worked in the Bangladesh counsel team on the proposed acquisition of a controlling stake in Diamond Life Insurance Company Limited and related Bangladesh market-entry issues."},
+        {"title":"LEO Group Co., Ltd.","meta":"Proposed HKEX Main Board listing • 2026","text":"Conducted due diligence on the Bangladesh subsidiary and prepared Bangladesh legal opinion and due diligence materials for the proposed Hong Kong listing."},
+        {"title":"Chaldal PLC strategic investment","meta":"Investment due diligence • 2026","text":"Prepared legal due diligence on financing, security interests, material contracts, intellectual property and regulatory compliance for a proposed investment."},
+        {"title":"Ready-made garments group acquisition","meta":"Cross-border transaction • 2022–2023","text":"Worked with Latham & Watkins on red-flag Bangladesh legal due diligence for an upstream acquisition of a ready-made garments group."},
+        {"title":"Bank and mobile financial services acquisition","meta":"Initial regulatory assessment • 2026","text":"Prepared an initial report on commercial and digital banking licences, MFS eligibility, foreign ownership, control and shareholding limits, board requirements, approvals, listed-bank takeover rules and foreign exchange. Assessed acquisition and new-bank establishment options."}
+      ]
+    },
+    {
+      "id":"finance","title":"Banking and finance","description":"Conventional and Islamic financing, security documents and banking products.",
+      "items":[
+        {"title":"Standard Chartered Bank — Akij financing","meta":"Master Murabaha • BDT448.05 crore mortgage value • 2024–2025","text":"Worked on the Akij Food and Beverage ECA-backed Islamic financing. Conducted land and corporate due diligence, prepared the due diligence report and security documents, and reviewed conditions precedent."},
+        {"title":"SML Holdings Limited","meta":"Multi-jurisdictional financing • 2025–2026","text":"Worked with Goodwin Procter on cross-border financing. Prepared due diligence reports and transaction documents and advised on Bangladesh law issues."},
+        {"title":"Eastern Bank PLC — Banglalink syndicated loan","meta":"Lead-arranger mandate • 2023","text":"Worked on the lead arranger’s mandate for a syndicated term loan to Banglalink Digital Communications Limited. Reviewed the facility agreement and drafted the subordination deed."},
+        {"title":"Standard Chartered Bank secondments","meta":"Property: 2023–2024 • Finance and banking products: 2024–2026","text":"Supported land and property due diligence, project finance, Diminishing Musharaka, Master Murabaha and ECA-backed facilities. Worked on treasury bonds, bancassurance and escrow arrangements."},
+        {"title":"Syndicated lending security","meta":"Negative lien documentation • 2026","text":"Assisted with reviewing negative lien documentation for a syndicated term loan involving leasehold project land and restrictions on further encumbrances."}
+      ]
+    },
+    {
+      "id":"advisory","title":"Regulatory and commercial advisory","description":"Technology contracts, education, governance, energy and commercial property.",
+      "items":[
+        {"title":"Khan Academy Bangladesh operations","meta":"Digital education and regulatory compliance • 2023–2026","text":"Advised on structuring Bangladesh operations and reviewed operating and trademark licence agreements, data-protection terms and school-facing documents. Addressed children’s data and consent, remittances, tax and dispute-resolution provisions."},
+        {"title":"Core banking implementation","meta":"Technology procurement and contract remedies • 2026","text":"Assisted with preparing an opinion for a commercial bank on a core banking system upgrade, including vendor obligations, cure provisions, fresh procurement and contractual remedies."},
+        {"title":"Grameen University","meta":"Governance and constitutional documents • 2025–2026","text":"Prepared amendments to the Trust Deed and Memorandum of Association and coordinated execution, registration and RJSC filing steps. Reviewed an employee-outsourcing agreement and related contractual and employment issues."},
+        {"title":"Jamuna University","meta":"Establishment and governance • 2025","text":"Drafted and revised the trust deed, memorandum and rules for the proposed university. Advised on governance, trustees’ remuneration and the use of university funds."},
+        {"title":"Index Companies","meta":"Power purchase tariff regulation • From 2026","text":"Advised on regulatory issues concerning conversion of PPA tariff payments from BDT to USD and prepared representations to the Bangladesh Power Development Board."},
+        {"title":"Commercial property","meta":"Multinational food and beverage group • 2025","text":"Reviewed property due diligence and lease documentation, revised the Bangladesh office lease deed and advised on registration requirements."}
+      ]
+    },
+    {
+      "id":"competition","title":"Competition proceedings","description":"Investigation responses, market evidence and regulatory representations.",
+      "items":[
+        {"title":"JT International Bangladesh Limited","meta":"Competition Case No. 04/2021 • Work in 2023–2024","text":"Worked in the team on proceedings involving British American Tobacco Bangladesh and alleged abuse of dominance and restrictive retail practices. Prepared objections, replies and review materials addressing investigation reports and supported hearing preparation and client reporting."},
+        {"title":"BRAC Seed & Agro Enterprise","meta":"Competition Case No. 28/2022 • Work in 2023–2025","text":"Prepared objections and submissions on rice pricing, market share, licensing, cost of goods sold and pricing evidence. Appeared before the Competition Commission and supported preparation through the final-hearing stage."},
+        {"title":"Ship handling and stevedoring at Chattogram Port","meta":"Competition Case No. 58/2022 • Work in 2022–2023","text":"Assisted Kazi Ataul-Al-Osman in proceedings involving the Bangladesh Ship Handling and Berth Operators Association. Drafted applications to reject the complaint and modify an order, addressing monopoly allegations, licensing responsibility and cause of action."},
+        {"title":"Coca-Cola Bangladesh acquisition representations","meta":"Post-acquisition regulatory engagement • March 2024","text":"Attended the Competition Commission’s meeting on 10 March 2024 with Dr. Sharif Bhuiyan and client representatives. Assisted with written representations on prior approval and follow-up transaction, valuation and financial materials."}
+      ]
+    },
+    {
+      "id":"disputes","title":"Litigation and arbitration","description":"Constitutional, commercial, intellectual property, labour and other proceedings.",
+      "items":[
+        {"title":"Constitutional amendment proceedings","meta":"Fifteenth and Thirteenth Amendments • 2024–2026","text":"Assisted Dr. Sharif Bhuiyan in Writ Petition No. 9935 of 2024 and subsequent appeals, Civil Review Petition No. 200 of 2024 and Civil Appeal No. 112 of 2025. Conducted research, drafted applications and prepared hearing materials."},
+        {"title":"Judicial independence and Article 116","meta":"Writ Petition No. 10356 of 2024","text":"Assisted Dr. Sharif Bhuiyan in his role as court-appointed amicus curiae, undertaking research and preparing materials concerning Article 116 and judicial independence."},
+        {"title":"Ascott International Management Pte. Ltd.","meta":"Trademark enforcement • With Bird & Bird • 2025–2026","text":"Assisted with pleadings, non-use cancellation applications, a contempt notice and hearing preparation in trademark appeal, opposition and civil suit proceedings. Coordinated with international counsel on procedural updates."},
+        {"title":"ICC commercial arbitration","meta":"Industrial equipment services dispute • 2026","text":"Assisted in preparing and filing a Request for Arbitration for a Bangladesh industrial company. Researched contractual issues and assisted with subsequent procedural submissions and client communications."},
+        {"title":"Singer Bangladesh labour proceedings","meta":"Wage cases and appeals • 2023–2026","text":"Prepared and revised written submissions and conducted hearings in labour wage cases and appeals."},
+        {"title":"Isuzu Motors commercial litigation","meta":"Money Suit No. 10 of 2024 • Work in 2025–2026","text":"Worked with Nagashima Ohno & Tsunematsu and appeared before the Joint District Judge, 3rd Court, Dhaka, in proceedings concerning an application to strike out Isuzu as a defendant."},
+        {"title":"Hospital shareholder dispute","meta":"Company law, mediation and arbitration • 2022","text":"Advised a hospital and its board on company-law issues and represented it in mediation and arbitration concerning a majority–minority shareholder dispute."},
+        {"title":"Anti-Corruption Commission proceedings","meta":"Trial and related High Court proceedings • 2025–2026","text":"Worked on defence proceedings, discharge and personal-attendance exemption applications, and a related application under section 561A of the Code of Criminal Procedure. Prepared supplementary affidavit materials and coordinated with the bank’s legal team."},
+        {"title":"Guardianship and child custody proceedings","meta":"Family Court and Appellate Division • 2025–2026","text":"Assisted Sara Hossain, Senior Advocate, with hearing preparation, supporting documents, additional paper-book applications, settlement and guardianship-certificate issues."},
+        {"title":"Court-record verification for UK proceedings","meta":"Bangladesh court enquiries and reporting • 2026","text":"Conducted court-record enquiries in Sylhet and assisted with a verification report for use in UK immigration appeal proceedings, documenting case status, orders and the verification methodology."}
+      ]
+    }
+  ],
+  "writing":[
+    {"type":"Article","title":"A citizen’s solution to Dhaka’s traffic problem","publisher":"The Daily Star","date":"March 2022","description":"An opinion piece on shared transport, planning and practical responses to Dhaka’s traffic problems.","url":"https://www.thedailystar.net/views/opinion/news/citizens-solution-dhakas-traffic-problem-2994321"},
+    {"type":"Editorial assistance","title":"Revolutionary Constitutionalism and Why it was Essential to Declare the Fifteenth Amendment Unconstitutional","publisher":"Dr. Sharif Bhuiyan","date":"2025","description":"Assisted Dr. Sharif Bhuiyan with editing the book.","url":""}
+  ],
+  "videos":[],
+  "innovation":"Founder of Lexintell (2021), a Bangladesh legal database. Winner of the Bangladesh round of the Global Legal Hackathon (2022); portfolio startup under the ICT Division’s iDEA Project (2022).",
+  "memberships":"Lincoln’s Inn (since 2017); Dhaka Bar Association and Dhaka Tax Bar Association (since 2021).",
+  "languages":"Bangla (native); English (fluent)."
+}
