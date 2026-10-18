@@ -8,7 +8,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'){nav.classList.remov
 all('[role=tablist]').forEach(list=>{const tabs=all('[role=tab]',list);const activate=tab=>{tabs.forEach(t=>{const selected=t===tab;t.setAttribute('aria-selected',String(selected));t.tabIndex=selected?0:-1;$('#'+t.dataset.tab).hidden=!selected;});};tabs.forEach((t,i)=>{t.addEventListener('click',()=>activate(t));t.addEventListener('keydown',e=>{let next;if(e.key==='ArrowRight')next=(i+1)%tabs.length;if(e.key==='ArrowLeft')next=(i-1+tabs.length)%tabs.length;if(e.key==='Home')next=0;if(e.key==='End')next=tabs.length-1;if(next!==undefined){e.preventDefault();activate(tabs[next]);tabs[next].focus();}});});});
 function timeline(rows){return rows.map(r=>`<div class="timeline-row"><div class="timeline-date">${escapeHtml(r[0])}</div><div><h3>${escapeHtml(r[1])}</h3><p>${escapeHtml(r[2])}</p></div></div>`).join('');}
 function safeUrl(raw){try{let u=new URL(raw,location.href);return ['https:','http:'].includes(u.protocol)?u.href:null;}catch{return null;}}
-fetch('profile.json').then(r=>{if(!r.ok)throw Error('profile');return r.json();}).then(d=>{
+fetch('profile.json?v=profile-2').then(r=>{if(!r.ok)throw Error('profile');return r.json();}).then(d=>{
  $('#summary').textContent=d.summary;
  $('#career').innerHTML=timeline(d.employment)+'<p class="secondments">Secondments through DKHA: Standard Chartered Bank — property (2023–2024); finance and banking products (2024–2026).</p>';
  $('#qualifications').innerHTML=timeline(d.qualifications);$('#education').innerHTML=timeline(d.education);
