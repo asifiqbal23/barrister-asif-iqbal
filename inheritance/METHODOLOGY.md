@@ -33,7 +33,7 @@ Results show exact group and individual fractions, percentages, amounts, exclude
 
 - No universal parity claim with the reference website. Its actual observed output conflicts with a primary worked mu‘addah example, and its independent monetary rounding can overstate the total by a minor unit.
 - Multiple family relationships for one person, successive estates or uncertain death order require a family-tree assessment.
-- Bangladesh section 4 representation is not applied automatically. See the [Muslim Family Laws Ordinance, 1961, section 4](https://bdlaws.minlaw.gov.bd/act-print-305/section-print-13528.html).
+- Bangladesh section 4 branch totals are calculated in the separate Bangladesh profile; multi-child intrabranch division is not automated. See the [Muslim Family Laws Ordinance, 1961, section 4](https://bdlaws.minlaw.gov.bd/act-print-305/section-print-13528.html).
 - Bequests to heirs, bequests beyond the one-third model, debts exceeding the entered monetary estate and disputed eligibility require review.
 - An unallocated balance is not automatically assumed to be paid to a functioning public treasury or to a spouse.
 - Family counts alone cannot verify lineage, simultaneous survival, ownership, marriage validity, legal disqualification or local law. Counts can also describe an impossible family; the form’s basic validation is not a genealogy audit.
