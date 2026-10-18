@@ -28,13 +28,13 @@ const METHODS=['hanafi','maliki','shafii','hanbali','yusuf','muhammad'];
 const SPECIAL={unborn:'An unborn child may require reserved shares and alternative calculations.',adopted:'Adoption does not by itself define a blood-heir entitlement. The family and any bequest need review.',parentage:'Disputed or legally unestablished parentage needs individual review.',foster:'Foster or adoptive relationships must be distinguished from inheriting blood relationships.',prisoner:'Detention and the person’s survival or legal status need individual assessment.',religion:'A difference or change of religion may affect eligibility; no automatic disqualification is applied.',missing:'A missing person’s status and reserved estate require individual review.',homicide:'A possible disqualification arising from a killing requires a legal and factual assessment.',orphan:'Bangladesh section 4 / statutory representation may apply to descendants of a predeceased child. This version does not calculate that statutory adjustment.',multiple:'One person connected through multiple family paths requires a family-tree review.',willHeir:'A bequest benefiting an heir requires review of validity and any required consent.',deathOrder:'Uncertain or successive deaths must be assessed as separate estates with a verified order of death.'};
 function review(messages,estate){return {status:'review',messages,estate};}
 function estate(input){
- const cash=decimal(input.cash||0,2),funeral=decimal(input.funeral||0,2),dower=decimal(input.dower||0,2),debt1=decimal(input.debt1||0,2),debt2=decimal(input.debt2||0,2);
- const debts=debt1.add(debt2),deductions=funeral.add(dower).add(debts),after=cash.sub(deductions);
+ const cash=decimal(input.cash||0,2),funeral=decimal(input.funeral||0,2),dower=decimal(input.dower||0,2),debt1=decimal(input.debt1||0,2),debt2=decimal(input.debt2||0,2),otherDebt=decimal(input.otherDebt||0,2);
+ const debts=debt1.add(debt2).add(otherDebt),deductions=funeral.add(dower).add(debts),after=cash.sub(deductions);
  const will=fraction(input.will||0);if(will.cmp(F(1,3))>0)throw Error('This model accepts a bequest of at most one-third after expenses and debts. Larger bequests need individual review.');
  if(will.cmp(0)<0)throw Error('The bequest cannot be negative.');
  const exactBequest=after.cmp(0)>0?after.mul(will):Z();
  const bequest=F(exactBequest.n*100n/exactBequest.d,100),net=after.cmp(0)>0?after.sub(bequest):Z();
- return {cash,funeral,dower,debt1,debt2,debts,deductions,after,will,bequest,exactBequest,net,insolvent:after.cmp(0)<0};
+ return {cash,funeral,dower,debt1,debt2,otherDebt,debts,deductions,after,will,bequest,exactBequest,net,insolvent:after.cmp(0)<0};
 }
 function calculate(input={}){
  let e;try{e=estate(input);}catch(err){return {status:'invalid',messages:[err.message]};}
@@ -69,7 +69,7 @@ function calculate(input={}){
  if(h.wives)fixed('wives',desc?F(1,8):F(1,4),(desc?'The wife or wives receive one-eighth collectively because an inheriting child or descendant through sons is present.':'The wife or wives receive one-quarter collectively because no inheriting child or descendant through sons is present.')+' Multiple wives divide this portion equally.');
  const spouse= h.husband?'husband':h.wives?'wives':null;
  if(h.mother){const umariyya=!desc&&(h.father||method==='yusuf'&&grand)&&sibs<2&&spouse;
-  fixed('mother',umariyya?O().sub(row(spouse).share).div(3):(desc||sibs>=2?F(1,6):F(1,3)),umariyya?'Umariyyah: one-third of the remainder after the spouse.':'Mother’s prescribed portion; descendants or two or more siblings reduce it to one-sixth.');if(umariyya)notes.push('Umariyyah applied.');}
+  fixed('mother',umariyya?O().sub(row(spouse).share).div(3):(desc||sibs>=2?F(1,6):F(1,3)),umariyya?'Umariyyah: one-third of the remainder after the spouse.':desc?'The mother receives one-sixth because an inheriting descendant is present.':sibs>=2?`The mother receives one-sixth because ${sibs} siblings are entered, including siblings who may themselves be excluded.`:'The mother receives one-third because no inheriting descendant and fewer than two siblings are present.');if(umariyya)notes.push('Umariyyah applied.');}
  if(grand&&desc)fixed(grand,F(1,6),'The nearest eligible male ascendant receives one-sixth with inheriting descendants, and may also receive residue when there is no male descendant.');
  if(!h.mother){
   const hb=method==='hanbali',maternalPreference=['maliki','shafii'].includes(method);
@@ -123,7 +123,7 @@ function calculate(input={}){
    const left=O().sub(others),units=h.fb*2+h.fs+h.pb*2+h.ps;
    const candidates=others.cmp(0)===0?[F(1,3),left.mul(F(2,2+units))]:[F(1,6),left.div(3),left.mul(F(2,2+units))];
    const best=candidates.reduce((a,b)=>a.cmp(b)>=0?a:b);
-   fixed(grand,best,'Grandfather with siblings: the most favourable eligible option is selected from sharing as a brother, one-third of the residue, or the prescribed minimum where applicable.');
+   fixed(grand,best,`Grandfather with siblings: compare ${candidates.map(c=>c.str()).join(', ')} of the whole estate under the selected Zayd rule. The greatest eligible portion is ${best.str()}. Sibling sharing uses ${units} sibling weighting units plus 2 for the grandfather.`);
    if(h.fb){resid('fb',2);resid('fs',1);}else if(h.fs&&(h.pb||h.ps)){
     const available=left.sub(best),cap=h.fs===1?F(1,2):F(2,3);
     if(available.cmp(0)>0){fixed('fs',available.cmp(cap)<0?available:cap,'Mu‘addah: paternal siblings count when determining the grandfather’s portion; full sisters then take the available balance up to their prescribed ceiling.');resid('pb',2);resid('ps',1);}
@@ -134,7 +134,7 @@ function calculate(input={}){
  const fixedTotal=rows.reduce((a,r)=>a.add(r.fixed),Z());
  let remainder=O().sub(fixedTotal),awl=false,radd=false;
  if(remainder.cmp(0)<0){awl=true;rows.forEach(r=>{r.share=r.fixed.div(fixedTotal);if(r.fixed.cmp(0)>0)r.reason+=' Awl proportionally reduces this share.';});remainder=Z();notes.push('Awl: prescribed shares exceeded the whole and were reduced proportionately.');}
- else if(res.length&&remainder.cmp(0)>0){const units=res.reduce((a,r)=>a+r.weight,0);res.forEach(r=>add(r.key,remainder.mul(F(r.weight,units)),'Residue passes to the nearest eligible group. Paired male and female descendants or siblings divide at two to one.'));remainder=Z();}
+ else if(res.length&&remainder.cmp(0)>0){const units=res.reduce((a,r)=>a+r.weight,0);res.forEach(r=>add(r.key,remainder.mul(F(r.weight,units)),`After fixed portions, ${remainder.str()} remains. There are ${units} total weighting units; this group has ${h[r.key]} person(s) and ${r.weight} units (${r.weight/h[r.key]} each). Its group share is ${remainder.str()} × ${r.weight}/${units} = ${remainder.mul(F(r.weight,units)).str()}.`));remainder=Z();}
  const raddPolicy=input.radd||'auto';if(!['auto','exclude','include','off'].includes(raddPolicy))return {status:'invalid',messages:['Unknown reversion policy.']};
  const applyRadd=raddPolicy==='include'||raddPolicy==='exclude'||raddPolicy==='auto'&&(hanafi||method==='hanbali');
  if(remainder.cmp(0)>0&&!res.length&&applyRadd){

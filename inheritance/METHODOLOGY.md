@@ -1,8 +1,8 @@
-# Islamic inheritance calculator — validation preview
+# Islamic inheritance calculator — educational release
 
 Updated 18 October 2026. Independently written for Barrister Asif Iqbal’s portfolio.
 
-**This is a reviewable implementation, not a completed reproduction of every case on inheritance-calculator.com. Do not use this preview to distribute an estate.** No scholar, court or chamber has certified this implementation. Complete equivalence with the reference website has not been established. See [the observed comparisons](REFERENCE-COMPARISON.md).
+**This is an educational implementation, not a completed reproduction of every case on inheritance-calculator.com. Verify all facts and applicable law before distributing an estate.** No scholar, court or chamber has certified this implementation. Complete equivalence with the reference website has not been established. See [the observed comparisons](REFERENCE-COMPARISON.md).
 
 ## What the program actually does
 
@@ -23,7 +23,7 @@ Results show exact group and individual fractions, percentages, amounts, exclude
 | Mushtarakah | Selected Maliki/Shafi‘i treatment pools eligible full and maternal siblings in their one-third portion, equally per person. |
 | Grandfather and siblings | Abu Hanifa profile blocks siblings. The other five profiles use the selected Zayd approach, including muqasamah, the grandfather’s alternatives, mu‘addah and Akdariyyah. |
 | Grandmothers | School-dependent exclusion by an intervening ascendant, degree priority and eligible lines. The selected Hanbali view permits a grandmother with her son; the selected Maliki view excludes the paternal grandfather’s mother as a fixed sharer. |
-| Hanafi distant kindred | Class/degree priority. Hanafi and Muhammad profiles use the transmitted Muhammad approach; Abu Yusuf uses its reported priorities and per-person method. The ascendant tie preference follows the al-Khassaf view described in al-Sirajiyyah. These are selected opinions, not every reported opinion. |
+| Hanafi distant kindred | Class/degree priority. Hanafi and Muhammad profiles use the transmitted Muhammad approach; Both students use the reported sibling-descendant priority over the maternal grandfather; Abu Yusuf uses its per-person distribution method. Mixed remote ascendants with sibling descendants or aunts/uncles stop for review because a blanket class priority can fail. Maternal sibling offspring divide equally under the selected mainstream report. The ascendant tie preference follows the al-Khassaf view described in al-Sirajiyyah. These are selected opinions, not every reported opinion. |
 | Hanbali distant kindred | Tanzil through child, father and mother directions. Necessary connecting branches must be entered. The selected opinion gives equally related male and female branch members equal portions. Other transmitted opinions exist. |
 | Unborn children | Enumerate alternative live-birth outcomes for up to four children. No claim to establish pregnancy, parentage, gestation, a sufficient reserve or a distribution date. |
 | Uncertain eligibility | Compare inclusion and exclusion of identified relatives. The program does not determine legal survival, homicide, religion or parentage. |
@@ -38,11 +38,11 @@ Results show exact group and individual fractions, percentages, amounts, exclude
 - An unallocated balance is not automatically assumed to be paid to a functioning public treasury or to a spouse.
 - Family counts alone cannot verify lineage, simultaneous survival, ownership, marriage validity, legal disqualification or local law. Counts can also describe an impossible family; the form’s basic validation is not a genealogy audit.
 - Only the enumerated relatives and selected opinions are represented. All 23 languages of the reference site, its entire explanatory corpus and every combination have not been reproduced.
-- The source-site general loan field has not been mapped separately from its first/second loan categories; this form instead asks for two non-overlapping debt amounts. Enter each debt once.
+- The three debt fields are added together, matching the observed reference example. Enter each debt once; “other debts” excludes amounts entered in the before/during-final-illness fields.
 
 ## Money and land assumptions
 
-Monetary estate less funeral/burial expense, unpaid dower and the two debt amounts gives the bequest base. A bequest of at most one-third is then deducted. Its amount is rounded down to the nearest minor currency unit. All money inputs and outputs use two decimals; currencies with different minor-unit conventions need separate handling.
+Monetary estate less funeral/burial expense, unpaid dower and the three debt amounts gives the bequest base. A bequest of at most one-third is then deducted. Its amount is rounded down to the nearest minor currency unit. All money inputs and outputs use two decimals; currencies with different minor-unit conventions need separate handling.
 
 Inheritance shares use arbitrary-precision rational arithmetic. Money is allocated by largest remainders, reconciling individual/group amounts to the net estate. A one-minor-unit difference between equal heirs is a rounding assignment, not an extra legal right. Decimal percentages and land values are approximations of the exact fractions.
 
@@ -55,6 +55,7 @@ The program, interface and explanations are original. No calculator source code,
 Primary rules were checked against:
 
 - [Qur’an 4:11](https://quran.com/4/11), [4:12](https://quran.com/4/12) and [4:176](https://quran.com/4/176).
+- [Al-Sarakhsi, al-Mabsut, volume 30](https://ar.wikisource.org/wiki/مبسوط_السرخسي_-_الجزء_الثلاثون), pp. 4, 28 and 39–40: distant-kindred priorities and selected gender-weighting reports.
 - [Sahih al-Bukhari 6732](https://sunnah.com/bukhari:6732) and [6736](https://sunnah.com/bukhari:6736).
 - *Al-Sirajiyyah*, grandfather-sharing and distant-kindred chapters; [public-domain Arabic text reproduced here](https://freeislamicwill.com/index.php/al-sirajiyyah-arabic-text-translation-alsrajyt). The modern translation is separately authored; it has not been copied into this tool.
 - Ibn Qudamah, *al-Mughni*, [Kitab al-Fara’id (Arabic)](https://ar.wikisource.org/wiki/المغني_-_كتاب_الفرائض), including grandfather, grandmother and Tanzil discussions.
@@ -65,8 +66,8 @@ Supporting worked examples and contemporary explanations include [Cheema (2021),
 
 Run `node --test inheritance/tests/engine.test.js` from the repository root.
 
-At this checkpoint, 64 automated tests passed. These include twenty externally worked family examples, method variants, two mu‘addah examples, selected distant-kindred cases, grandmother differences, unequal branches, conditional scenarios, input validation, money and land arithmetic.
+At this release, 72 automated tests passed. These include twenty externally worked family examples, method variants, two mu‘addah examples, selected distant-kindred cases, grandmother differences, unequal branches, conditional scenarios, input validation, money and land arithmetic.
 
-A separate pairwise arithmetic check examined every pair of the 67 categories across six profiles: 13,247 returned an allocation, 13 requested branch review and 6 rejected conflicting spouses. Every allocation reconciled to exactly one without a negative portion. **This checks arithmetic invariants, not the legal correctness of all those cases.**
+Before the added remote-ascendant review guard, a separate pairwise arithmetic check examined every pair of the 67 categories across six profiles: 13,247 returned an allocation, 13 requested branch review and 6 rejected conflicting spouses. Every allocation reconciled to exactly one without a negative portion. **This checks arithmetic invariants, not the legal correctness of all those cases.**
 
-Only the explicitly recorded reference-site observations have been compared. These tests do not establish exhaustiveness, legal validity or reference-site parity. Further independent specialist review is necessary before a production release.
+Only the explicitly recorded reference-site observations have been compared. These tests do not establish exhaustiveness, legal validity or reference-site parity. Independent specialist review is still needed before treating this educational aid as a distribution authority. A DOM integration check covers the result views, scenario switching, source links and review states. The managed local-preview service was unavailable; the published page is checked separately in the browser.

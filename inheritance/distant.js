@@ -29,8 +29,10 @@ function solve({h,method,input,F,calculate}){
  const proportional=(keys,share,weight,reason)=>{const denominator=keys.reduce((n,k)=>n+weight(k),0);keys.forEach(k=>add(k,share.mul(F(weight(k),denominator)),reason));};
  const core=heirs=>{const r=calculate({method:'hanbali',heirs,radd:'exclude',_projection:true});if(r.status!=='ok')throw Error('A projected family could not be resolved: '+r.messages.join(' '));return Object.fromEntries(r.rows.map(r=>[r.key,r.share]));};
  if(method!=='hanbali'){
-  // The accepted Hanafi class order; Abu Yusuf's reported order places siblings' offspring before maternal ascendants.
-  const order=method==='yusuf'?[classes[0],classes[2],classes[1],classes[3]]:classes;
+  if(!classes[0].some(k=>h[k])&&!h.mf&&classes[1].some(k=>h[k])&&[...classes[2],...classes[3]].some(k=>h[k]))return {status:'review',messages:['A remote maternal ascendant appears with sibling descendants or aunts/uncles. Priority can depend on degree and connecting line; this mixed remote-ascendant case needs an individual family-tree review. No automatic distribution is issued.']};
+  // Reported student profiles prioritize siblings’ offspring over maternal ascendants; al-Mabsut vol.30, p.4.
+  const order=['yusuf','muhammad'].includes(method)?[classes[0],classes[2],classes[1],classes[3]]:classes;
+  if(method==='muhammad')notes.push('Imam Muhammad shares Abu Yusuf’s reported priority of sibling descendants over the maternal grandfather (al-Mabsut, volume 30, page 4).');
   let keys=order.find(c=>c.some(k=>h[k])).filter(k=>h[k]);const ci=classes.findIndex(c=>c.includes(keys[0]));
   const reason='Distant kindred: apply class priority, degree and the selected jurist’s distribution rule (al-Sirajiyyah, Distant Kindred).';
   notes.push('Distant kindred receive the balance after the spouse, with earlier classes excluding later classes. '+(method==='yusuf'?'Abu Yusuf: per-person distribution and the reported sibling-descendant priority.':'Hanafi / Imam Muhammad: the transmitted Muhammad method considers the sex and number of connecting roots.'));
@@ -47,7 +49,7 @@ function solve({h,method,input,F,calculate}){
    notes.push('Ascendant tie rule: a connection through an inheriting relative is preferred, following the view recorded for al-Khassaf and others in al-Sirajiyyah.');
    byGenerations(keys,F(1));
   }else if(ci===2){
-   if(method==='yusuf'){const full=keys.filter(k=>['fbd','fss','fsd'].includes(k)),pat=keys.filter(k=>['pbd','pss','psd'].includes(k));keys=full.length?full:pat.length?pat:keys;proportional(keys,F(1),k=>h[k]*(maleKeys.has(k)?2:1),reason);}
+   if(method==='yusuf'){const full=keys.filter(k=>['fbd','fss','fsd'].includes(k)),pat=keys.filter(k=>['pbd','pss','psd'].includes(k));keys=full.length?full:pat.length?pat:keys;proportional(keys,F(1),k=>h[k]*((full.length||pat.length)?(maleKeys.has(k)?2:1):1),reason);}
    else{const projected={};keys.forEach(k=>projected[sibRoot[k]]=(projected[sibRoot[k]]||0)+h[k]);const shares=core(projected);
     for(const parent of ['fb','fs','pb','ps','ms']){const children=keys.filter(k=>sibRoot[k]===parent);if(!children.length)continue;proportional(children,shares[parent]||F(0),k=>h[k]*(parent==='ms'?1:maleKeys.has(k)?2:1),reason);}
    }

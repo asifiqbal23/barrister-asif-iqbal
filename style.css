@@ -65,3 +65,5 @@ body:has(.notice-dialog[open]){overflow:hidden}
 @media(max-width:760px){.hero-connect{margin-top:22px}.practice-grid{gap:25px 20px;margin-top:27px}.practice-grid h3{font-size:22px}.practice-grid p{font-size:12px}.contact-section .display{font-size:40px}.contact-intro{font-size:14px}.contact-actions{gap:14px}.legal-copy{grid-template-columns:1fr}.legal-section h2{font-size:26px}.legal-section{padding-top:40px;padding-bottom:32px}.notice-dialog{padding:27px 24px}.notice-dialog h2{font-size:35px}.notice-dialog p{font-size:13px}.notice-actions{gap:19px}}
 @media(max-width:480px){.practice-grid{grid-template-columns:1fr}.practice-grid h3{font-size:24px}.contact-section .display{font-size:36px}}
 @media print{.hero-connect,.notice-dialog,.contact-actions{display:none!important}body:has(.notice-dialog[open]){overflow:visible}.practice-grid{grid-template-columns:repeat(3,1fr)}.legal-copy{display:block}}
+
+@media(min-width:981px){.header nav{gap:19px}.header nav a{font-size:12px}.nav-wrap{gap:20px}}

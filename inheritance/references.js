@@ -1,6 +1,7 @@
 (function(root){
 'use strict';
 const sources={
+ mabsut:{name:'Al-Sarakhsi, al-Mabsut, vol. 30, p. 4 — distant-kindred priority',url:'https://ar.wikisource.org/wiki/مبسوط_السرخسي_-_الجزء_الثلاثون'},
  siraj:{name:'Al-Sirajiyyah — Arabic inheritance text (grandfather and distant-kindred chapters)',url:'https://freeislamicwill.com/index.php/al-sirajiyyah-arabic-text-translation-alsrajyt'},
  mughni:{name:'Ibn Qudamah, al-Mughni — Kitab al-Fara’id (Arabic)',url:'https://ar.wikisource.org/wiki/المغني_-_كتاب_الفرائض'},
  unborn:{name:'Al-Mughni — pregnancy and conditional inheritance (Arabic)',url:'https://ar.wikisource.org/wiki/المغني_-_كتاب_الفرائض'},
@@ -25,7 +26,7 @@ const sources={
  soleDistant:{name:'IslamQA, answer 85495 — sole distant-kindred heir',url:'https://islamqa.info/ar/answers/85495'},
  siblingsCase:{name:'Islamic Portal — inheritance questions and equal maternal-sibling shares',url:'https://islamicportal.co.uk/inheritance-questions/'},
  bd:{name:'Bangladesh: Muslim Family Laws Ordinance, 1961, section 4',url:'https://bdlaws.minlaw.gov.bd/act-print-305/section-print-13528.html'},
- scope:{name:'Calculation policy and supported cases',url:'METHODOLOGY.md'}
+ scope:{name:'Calculation policy and supported cases',url:'guide.html#policy'}
 };
 function windowSafeDistant(key){return ['ds','dd','sds','sdd','dss','dsd','dds','ddd','ssds','ssdd','mf','fmf','mff','mmf','mfm','fbd','fss','fsd','mbs','mbd','mss','msd','pbd','pss','psd','fa','fpa','fma','fmu','mu','ma','mpu','mpa','mmu','mma'].includes(key);}
 function forRow(row,result){
@@ -43,7 +44,7 @@ function forRow(row,result){
  if(result.awl&&row.fixed.n){refs.add('awlCase');refs.add('study');}
  if(result.akdariyyah||result.grandfatherSiblings&&['pgf','pggf','fb','fs','pb','ps'].includes(key)){refs.add('zayd');refs.add('siraj');refs.add('mughni');}
  if(result.mushtaraka&&['fb','fs','ms'].includes(key))refs.add('study');
- if(windowSafeDistant(key)){refs.add('siraj');refs.add('mughni');}if(!refs.size)refs.add('scope');
+ if(windowSafeDistant(key)){refs.add('siraj');refs.add('mughni');if(['yusuf','muhammad'].includes(result.method))refs.add('mabsut');}if(!refs.size)refs.add('scope');
  return [...refs];
 }
 const api={sources,forRow};

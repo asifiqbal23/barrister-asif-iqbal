@@ -67,3 +67,9 @@ test('Uncertain count cannot exceed the family input',()=>assert.equal(S.run({me
 test('No-school selection returns six named methods',()=>{const p=S.run({method:'none',heirs:{pgf:1,fs:1}},E);assert.equal(p.cases.length,6);assert.equal(p.cases[0].result.rows.find(r=>r.key==='fs').share.str(),'0');assert.equal(p.cases[1].result.rows.find(r=>r.key==='fs').share.str(),'1/3');});
 test('Adoption alone does not create an extra blood heir',()=>{const p=S.run({method:'hanafi',heirs:{son:1},special:{adopted:true}},E);assert.equal(p.result.status,'ok');assert.match(p.result.notes.join(' '),/Adoption/);assert.equal(p.result.rows.length,1);});
 test('Statutory representation remains a visible review boundary',()=>assert.equal(S.run({method:'hanafi',heirs:{son:1},special:{orphan:true}},E).result.status,'review'));
+check('Muhammad: sister descendant precedes maternal grandfather',{mf:1,fss:1},{mf:'0',fss:'1'},{method:'muhammad'});
+check('Yusuf: sister descendant precedes maternal grandfather',{mf:1,fss:1},{mf:'0',fss:'1'},{method:'yusuf'});
+check('Hanafi: maternal grandfather precedes sister descendant',{mf:1,fss:1},{mf:'1',fss:'0'});
+for(const method of ['hanafi','yusuf','muhammad'])check('Maternal sibling offspring equal '+method,{mbs:1,msd:1},{mbs:'1/2',msd:'1/2'},{method});
+test('All three debt fields are non-overlapping deductions',()=>{const r=E.calculate({heirs:{son:1},cash:'600000',otherDebt:'100',debt1:'200',debt2:'300'});assert.equal(r.estate.net.str(),'599400');assert.equal(E.allocateMoney(r).minor,59940000n);});
+test('Mixed remote maternal ascendants stop for individual review',()=>{for(const method of ['hanafi','yusuf','muhammad'])assert.equal(E.calculate({method,heirs:{mff:1,fa:1}}).status,'review');});
