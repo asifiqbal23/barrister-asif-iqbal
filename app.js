@@ -22,7 +22,7 @@ function renderVideos(videos){
    const media=document.createElement('div');media.className='video-media';
    const poster=document.createElement('button');poster.type='button';poster.className='video-poster';poster.setAttribute('aria-label','Play '+v.title);
    poster.innerHTML=`<img src="https://i.ytimg.com/vi/${id}/hqdefault.jpg" alt="" loading="lazy" decoding="async"><span class="video-play" aria-hidden="true">▶</span><span class="video-play-label">Watch video</span>`;
-   $('img',poster).addEventListener('error',e=>{e.target.hidden=true;});
+   $('img',poster).addEventListener('error',e=>{const img=e.target;if(!img.dataset.fallback){img.dataset.fallback='true';img.src='assets/asif-iqbal-portrait.jpg';}else img.hidden=true;});
    poster.addEventListener('click',()=>{
     all('.video-item').forEach(stopVideo);
     const iframe=document.createElement('iframe');iframe.src=`https://www.youtube.com/embed/${id}?autoplay=1&playsinline=1&rel=0`;iframe.title=v.title;iframe.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';iframe.allowFullscreen=true;iframe.referrerPolicy='strict-origin-when-cross-origin';
