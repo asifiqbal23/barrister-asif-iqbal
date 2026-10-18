@@ -29,3 +29,17 @@ fetch('profile.json').then(r=>{if(!r.ok)throw Error('profile');return r.json();}
  }
 }).catch(()=>{ $('#summary').textContent='Advocate of the Supreme Court of Bangladesh and Barrister-at-Law, Lincoln’s Inn. For the full professional profile, please download the CV.';$('#work-list').innerHTML='<p class="empty">The experience list could not load. Please refresh the page or download the CV.</p>';$('#show-more').hidden=true; });
 const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){all('a',nav).forEach(a=>{if(a.hash==='#'+e.target.id)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current');});}});},{rootMargin:'-15% 0px -65% 0px'});all('main section[id]').forEach(x=>observer.observe(x));
+
+// A short informational notice once per browser session; the full notice is always visible below.
+const professionalNotice=$('#professional-notice');
+if(professionalNotice&&typeof professionalNotice.showModal==='function'){
+ const noticeKey='asif-professional-notice-v1';
+ const rememberNotice=()=>{try{sessionStorage.setItem(noticeKey,'seen');}catch{}};
+ const dismissNotice=()=>{rememberNotice();professionalNotice.close();};
+ $('#notice-continue').addEventListener('click',dismissNotice);
+ $('#notice-read').addEventListener('click',dismissNotice);
+ professionalNotice.addEventListener('close',rememberNotice);
+ professionalNotice.addEventListener('cancel',rememberNotice);
+ let seen=false;try{seen=sessionStorage.getItem(noticeKey)==='seen';}catch{}
+ if(!seen)professionalNotice.showModal();
+}
