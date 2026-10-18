@@ -1,0 +1,72 @@
+# Islamic inheritance calculator — validation preview
+
+Updated 18 October 2026. Independently written for Barrister Asif Iqbal’s portfolio.
+
+**This is a reviewable implementation, not a completed reproduction of every case on inheritance-calculator.com. Do not use this preview to distribute an estate.** No scholar, court or chamber has certified this implementation. Complete equivalence with the reference website has not been established. See [the observed comparisons](REFERENCE-COMPARISON.md).
+
+## What the program actually does
+
+All arithmetic runs in the visitor’s browser. There is no embedded third-party calculator, remote calculation request, account, tracking script or stored family record. Source links open separately only when selected. GitHub serves the static files.
+
+The form has 67 relative categories, six named juristic profiles, English and Bengali interfaces, monetary deductions, a fractional bequest, land units and a custom land conversion. Detailed juristic explanations are currently in English. Selecting “no school” compares the six profiles rather than inventing a universally agreed result.
+
+Results show exact group and individual fractions, percentages, amounts, excluded relatives, original explanatory text, calculation steps and source links. Unequal Tanzil branches receive individual rows. Print/PDF uses the browser’s print facility; CSV exports the selected outcome.
+
+## Implemented policies
+
+| Area | Selected treatment |
+|---|---|
+| Fixed shares and residue | Spouses, parents, eligible grandparents, children, descendants through sons, siblings and the listed agnates; closer relatives and prescribed-share exhaustion can exclude others. |
+| Awl | Scale prescribed shares proportionately when their sum exceeds the estate. |
+| Radd | Automatic return to non-spouse sharers in the Hanafi, Abu Yusuf, Muhammad and Hanbali profiles. Classical Maliki/Shafi‘i policy leaves a separately identified balance. User overrides are explicitly identified. |
+| Umariyyah | Mother takes one-third of the spouse remainder with both parents; the Abu Yusuf profile also applies its transmitted grandfather variant. |
+| Mushtarakah | Selected Maliki/Shafi‘i treatment pools eligible full and maternal siblings in their one-third portion, equally per person. |
+| Grandfather and siblings | Abu Hanifa profile blocks siblings. The other five profiles use the selected Zayd approach, including muqasamah, the grandfather’s alternatives, mu‘addah and Akdariyyah. |
+| Grandmothers | School-dependent exclusion by an intervening ascendant, degree priority and eligible lines. The selected Hanbali view permits a grandmother with her son; the selected Maliki view excludes the paternal grandfather’s mother as a fixed sharer. |
+| Hanafi distant kindred | Class/degree priority. Hanafi and Muhammad profiles use the transmitted Muhammad approach; Abu Yusuf uses its reported priorities and per-person method. The ascendant tie preference follows the al-Khassaf view described in al-Sirajiyyah. These are selected opinions, not every reported opinion. |
+| Hanbali distant kindred | Tanzil through child, father and mother directions. Necessary connecting branches must be entered. The selected opinion gives equally related male and female branch members equal portions. Other transmitted opinions exist. |
+| Unborn children | Enumerate alternative live-birth outcomes for up to four children. No claim to establish pregnancy, parentage, gestation, a sufficient reserve or a distribution date. |
+| Uncertain eligibility | Compare inclusion and exclusion of identified relatives. The program does not determine legal survival, homicide, religion or parentage. |
+| Adoption/fosterage | No blood-heir share arises merely from adoption/fosterage. Any independent blood relationship must be entered correctly. A valid bequest is a separate issue. |
+
+## Boundaries that remain
+
+- No universal parity claim with the reference website. Its actual observed output conflicts with a primary worked mu‘addah example, and its independent monetary rounding can overstate the total by a minor unit.
+- Multiple family relationships for one person, successive estates or uncertain death order require a family-tree assessment.
+- Bangladesh section 4 representation is not applied automatically. See the [Muslim Family Laws Ordinance, 1961, section 4](https://bdlaws.minlaw.gov.bd/act-print-305/section-print-13528.html).
+- Bequests to heirs, bequests beyond the one-third model, debts exceeding the entered monetary estate and disputed eligibility require review.
+- An unallocated balance is not automatically assumed to be paid to a functioning public treasury or to a spouse.
+- Family counts alone cannot verify lineage, simultaneous survival, ownership, marriage validity, legal disqualification or local law. Counts can also describe an impossible family; the form’s basic validation is not a genealogy audit.
+- Only the enumerated relatives and selected opinions are represented. All 23 languages of the reference site, its entire explanatory corpus and every combination have not been reproduced.
+- The source-site general loan field has not been mapped separately from its first/second loan categories; this form instead asks for two non-overlapping debt amounts. Enter each debt once.
+
+## Money and land assumptions
+
+Monetary estate less funeral/burial expense, unpaid dower and the two debt amounts gives the bequest base. A bequest of at most one-third is then deducted. Its amount is rounded down to the nearest minor currency unit. All money inputs and outputs use two decimals; currencies with different minor-unit conventions need separate handling.
+
+Inheritance shares use arbitrary-precision rational arithmetic. Money is allocated by largest remainders, reconciling individual/group amounts to the net estate. A one-minor-unit difference between equal heirs is a rounding assignment, not an extra legal right. Decimal percentages and land values are approximations of the exact fractions.
+
+Land is entered **net of applicable obligations and bequests**; monetary obligations are not deducted again from land. One acre is 43,560 square feet; square yard is 9 square feet; the displayed marla/pole is 272.25 square feet and kanal 5,445 square feet. Local variants need the custom unit. One decimal/shotok is 435.6 square feet. Metric conversion uses the exact international foot definition.
+
+## Sources and originality
+
+The program, interface and explanations are original. No calculator source code, private backend, website graphics or long passages from the reference website are reproduced. Numerical examples are recorded as test facts.
+
+Primary rules were checked against:
+
+- [Qur’an 4:11](https://quran.com/4/11), [4:12](https://quran.com/4/12) and [4:176](https://quran.com/4/176).
+- [Sahih al-Bukhari 6732](https://sunnah.com/bukhari:6732) and [6736](https://sunnah.com/bukhari:6736).
+- *Al-Sirajiyyah*, grandfather-sharing and distant-kindred chapters; [public-domain Arabic text reproduced here](https://freeislamicwill.com/index.php/al-sirajiyyah-arabic-text-translation-alsrajyt). The modern translation is separately authored; it has not been copied into this tool.
+- Ibn Qudamah, *al-Mughni*, [Kitab al-Fara’id (Arabic)](https://ar.wikisource.org/wiki/المغني_-_كتاب_الفرائض), including grandfather, grandmother and Tanzil discussions.
+
+Supporting worked examples and contemporary explanations include [Cheema (2021), JITC 11(1), pp. 118–120](https://journals.umt.edu.pk/index.php/JITC/article/download/1228/619/) and the source links attached to individual results. A secondary comparative statement is not preferred over a conflicting primary discussion merely to obtain a match.
+
+## Validation record
+
+Run `node --test inheritance/tests/engine.test.js` from the repository root.
+
+At this checkpoint, 64 automated tests passed. These include twenty externally worked family examples, method variants, two mu‘addah examples, selected distant-kindred cases, grandmother differences, unequal branches, conditional scenarios, input validation, money and land arithmetic.
+
+A separate pairwise arithmetic check examined every pair of the 67 categories across six profiles: 13,247 returned an allocation, 13 requested branch review and 6 rejected conflicting spouses. Every allocation reconciled to exactly one without a negative portion. **This checks arithmetic invariants, not the legal correctness of all those cases.**
+
+Only the explicitly recorded reference-site observations have been compared. These tests do not establish exhaustiveness, legal validity or reference-site parity. Further independent specialist review is necessary before a production release.
