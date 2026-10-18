@@ -71,3 +71,19 @@ At this release, 72 automated tests passed. These include twenty externally work
 Before the added remote-ascendant review guard, a separate pairwise arithmetic check examined every pair of the 67 categories across six profiles: 13,247 returned an allocation, 13 requested branch review and 6 rejected conflicting spouses. Every allocation reconciled to exactly one without a negative portion. **This checks arithmetic invariants, not the legal correctness of all those cases.**
 
 Only the explicitly recorded reference-site observations have been compared. These tests do not establish exhaustiveness, legal validity or reference-site parity. Independent specialist review is still needed before treating this educational aid as a distribution authority. A DOM integration check covers the result views, scenario switching, source links and review states. The managed local-preview service was unavailable; the published page is checked separately in the browser.
+
+
+## Bangladesh statutory overlay — 18 October 2026
+
+`bangladesh.js` applies an explicit Bangladesh/Hanafi profile before the scenario layer. It represents each qualifying predeceased direct child once, calculates the notional family, then replaces that child’s individual share with a statutory branch allocation. Living children retain only their own shares. Exact shares, money reconciliation and land proportions use the resulting rows.
+
+- No double-counting grandchildren in ordinary fields; deeper descendant claims stop for family-tree review.
+- No predeceased spouse/sibling representation, recursive great-grandchild substitution or distribution to the deceased intermediate child’s other heirs is inferred.
+- A branch with one living child yields an individual award. Multiple-child branches have `collective: true`, `beneficiaryCount`, `count: 1` accounting unit and `each: null`. They must never be displayed as equal per-person awards.
+- School/radd overrides are excluded from this profile. Classical calculations remain separately available.
+- Relevant unresolved divorce, missing-person and special-property questions prevent allocation; the result contains the corresponding statutory references.
+- Historical/boundary-date estates stop for review. This is not a complete Bangladesh legal expert system.
+
+The primary statutory and judgment sources, implementation status and legal interpretation boundary are recorded in [Bangladesh law coverage](bangladesh.html). Section 4 determines the branch total; a binding universal Bangladesh formula for splitting a mixed-sex branch was not established in this review. Neither a 2:1 nor an equal intrabranch rule is silently imposed.
+
+Tests in `tests/bangladesh.test.js` cover branch representation, unequal family sizes, surviving heirs, spouse and parent changes, awl/radd, deductions, invalid inputs, no duplicate entitlement, exact conservation and reference delivery. These are software verification tests, not external legal certification.

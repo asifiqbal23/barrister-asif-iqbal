@@ -2,6 +2,8 @@
 (function(root){
 'use strict';
 function run(input,E){
+ if(input.jurisdiction==='bangladesh'){const BD=typeof module!=='undefined'&&module.exports?require('./bangladesh'):root.BangladeshInheritance;return {kind:'ordinary',result:BD.calculate(input,E),input,refs:['bdPersonal','bd']};}
+ if(input.hasStoredStatutoryBranches)return {kind:'ordinary',result:{status:'review',messages:['For a classical comparison, first remove the Bangladesh branch entries and enter the living grandchildren in the ordinary relative fields. Statutory branches are not silently ignored. / ফিকহি তুলনার আগে বাংলাদেশ শাখার তথ্য মুছে জীবিত নাতি-নাতনিকে সাধারণ আত্মীয়ের ঘরে দিন।'],refs:['bdGuide']},input};
  const base=JSON.parse(JSON.stringify(input)),flags=Object.keys(base.special||{}).filter(k=>base.special[k]);
  const clone=()=>JSON.parse(JSON.stringify(base));
  if(input.method==='none')return {kind:'schools',title:'Comparison of juristic methods',explanation:'No single “no-school” result is asserted. Each column applies the method named above it.',refs:['siraj','mughni'],cases:['hanafi','maliki','shafii','hanbali','yusuf','muhammad'].map(method=>{const i=clone();i.method=method;return {label:method,input:i,result:E.calculate(i)};})};

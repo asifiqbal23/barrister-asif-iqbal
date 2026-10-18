@@ -26,11 +26,24 @@ const sources={
  soleDistant:{name:'IslamQA, answer 85495 — sole distant-kindred heir',url:'https://islamqa.info/ar/answers/85495'},
  siblingsCase:{name:'Islamic Portal — inheritance questions and equal maternal-sibling shares',url:'https://islamicportal.co.uk/inheritance-questions/'},
  bd:{name:'Bangladesh: Muslim Family Laws Ordinance, 1961, section 4',url:'https://bdlaws.minlaw.gov.bd/act-print-305/section-print-13528.html'},
+ bdPersonal:{name:'Bangladesh: Shariat Application Act 1937, section 2 — scope of Muslim personal law',url:'https://bdlaws.minlaw.gov.bd/act-print-173/section-print-21540.html'},
+ bdOverride:{name:'Bangladesh: MFLO 1961, section 3 — statutory priority',url:'https://bdlaws.minlaw.gov.bd/act-print-305.html'},
+ bdTiming:{name:'Abdul Ali v Manikjan Bibi, HCD, CR 2652/2004, 16 August 2017 — timing of succession (pp. 7–10)',url:'https://www.supremecourt.gov.bd/resources/documents/82018_CR_2652_2004.pdf'},
+ bdDower:{name:'Bangladesh: MFLO 1961, section 10 — dower payment terms',url:'https://bdlaws.minlaw.gov.bd/act-print-305/section-print-13542.html'},
+ bdDivorce:{name:'Bangladesh: MFLO 1961, sections 7–8 — effective divorce',url:'https://bdlaws.minlaw.gov.bd/act-print-305.html'},
+ bdMissing:{name:'Bangladesh: Evidence Act 1872, section 108 — missing persons and proof',url:'https://bdlaws.minlaw.gov.bd/act-print-24/section-print-5127.html'},
+ bdFund:{name:'Bangladesh: Provident Funds Act 1925, sections 3–5 — separate fund rights',url:'https://bdlaws.minlaw.gov.bd/act-print-136.html'},
+ bdIntestate:{name:'Bangladesh: Succession Act 1925, section 29 — Muslim intestacy excluded from Part V',url:'https://bdlaws.minlaw.gov.bd/act-print-138/section-print-2087.html'},
+ bdWills:{name:'Bangladesh: Succession Act 1925, section 58 — Muslim testamentary succession',url:'https://bdlaws.minlaw.gov.bd/act-138/act-chapter-print-352.html'},
+ bdLand:{name:'Bangladesh: State Acquisition and Tenancy Act 1950, section 143B — inherited land and partition',url:'https://bdlaws.minlaw.gov.bd/act-print-241/section-print-7260.html'},
+ bdGuide:{name:'Bangladesh law: implemented rules and matters requiring review / আইন ও হিসাবের সীমা',url:'bangladesh.html'},
  scope:{name:'Calculation policy and supported cases',url:'guide.html#policy'}
 };
 function windowSafeDistant(key){return ['ds','dd','sds','sdd','dss','dsd','dds','ddd','ssds','ssdd','mf','fmf','mff','mmf','mfm','fbd','fss','fsd','mbs','mbd','mss','msd','pbd','pss','psd','fa','fpa','fma','fmu','mu','ma','mpu','mpa','mmu','mma'].includes(key);}
 function forRow(row,result){
  const key=row.baseKey||row.key.split('#')[0],refs=new Set();
+ if(result.jurisdiction==='bangladesh')refs.add('bdPersonal');
+ if(result.section4){refs.add('bd');refs.add('bdOverride');if(row.collective)refs.add('bdGuide');}
  if(['husband','wives','ms'].includes(key))refs.add('q412');
  if(['mother','father','son','daughter','ss','sd','sss','ssd'].includes(key))refs.add('q411');
  if(['fb','fs','pb','ps'].includes(key))refs.add('q4176');
