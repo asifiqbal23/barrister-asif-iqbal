@@ -49,8 +49,6 @@ fetch('profile.json?v=design-1').then(r=>{if(!r.ok)throw Error('profile');return
  $('#memberships').textContent=d.memberships;$('#languages').textContent=d.languages;$('#innovation').textContent=d.innovation;
  $('#last-updated').textContent='Updated '+d.updated;
  const items=d.groups.flatMap(g=>g.items.map(x=>({...x,category:g.id,categoryTitle:g.title})));
- $('#featured-work').innerHTML=(d.featured||[]).map((f,i)=>{const item=d.groups.find(g=>g.id===f.group)?.items[f.index];if(!item)return '';return `<article class="featured-matter"><div class="featured-top"><span class="eyebrow">${escapeHtml(f.label)}</span><span class="featured-number">0${i+1}</span></div><h3>${escapeHtml(item.title)}</h3><p class="featured-meta">${escapeHtml(item.meta)}</p><div class="featured-contribution"><span>Contribution</span><p>${escapeHtml(f.contribution)}</p></div><details><summary>Read full context <span aria-hidden="true">+</span></summary><p>${escapeHtml(item.text)}</p></details></article>`;}).join('');
- $('#archive-count').textContent=items.length+' matters';
 
  let filter='all',query='',limit=6;
  function renderWork(){const filtered=items.filter(x=>(filter==='all'||x.category===filter)&&(!query||[x.title,x.meta,x.text,x.categoryTitle].join(' ').toLowerCase().includes(query)));const shown=filtered.slice(0,limit);
