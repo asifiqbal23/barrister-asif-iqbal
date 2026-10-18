@@ -7,3 +7,23 @@
 @media print{.header,.filters,.search-row,.work-bottom,.hero-actions,.practice-strip,.journal-tabs,.profile-tabs,.footer{display:none}.wrap{width:100%}.section{display:block;padding:20px 0}.hero{padding:0;gap:20px}.hero h1{font-size:50px}.display{font-size:28px}.experience-section,.contact-section{background:white;color:black}.contact-section *{color:black}.matter{break-inside:avoid}.matter-body{display:block}body{background:white;font-size:10pt}.section-label{margin-bottom:10px}}
 .hero h1 .title-prefix{display:block;font-family:var(--sans);font-size:12px;font-weight:500;line-height:1.5;letter-spacing:3.5px;text-transform:uppercase;margin-bottom:17px}
 @media(max-width:480px){.header .nav-cv{display:none}}
+
+/* Portrait and credentials form one restrained editorial introduction. */
+.hero{grid-template-columns:1.15fr 1fr;gap:clamp(36px,6vw,88px);padding-top:55px;padding-bottom:48px}
+.hero-portrait{width:100%;max-width:430px;justify-self:end;margin:0;position:relative}
+.hero-portrait::before{content:"";position:absolute;top:16px;right:-16px;width:65%;height:70%;border-top:1px solid var(--accent);border-right:1px solid var(--accent);pointer-events:none}
+.hero-portrait img{display:block;position:relative;width:100%;height:auto;aspect-ratio:1122/1402;object-fit:cover;background:#e4ded2}
+.hero-portrait figcaption{display:flex;justify-content:space-between;gap:12px;margin-top:15px;font-size:8px;letter-spacing:1.5px;color:var(--muted)}
+.credential-band{display:grid;grid-template-columns:1fr 1fr 1fr;gap:30px;border-left:0;border-top:1px solid var(--line);padding:28px 0 33px;margin:0 auto}
+.credential-band .credential{border-bottom:0;margin:0;padding:0 26px 0 0}
+.credential-band .credential+.credential{border-left:1px solid var(--line);padding-left:30px}
+.credential-band .credential h2{font-size:22px;margin:0 36px 6px 0}
+.credential-band .credential-date{margin-top:5px;font-size:10px}
+.credential-band .current{display:block;grid-column:auto;border-top:0!important;padding-top:0!important}
+.credential-band .current .eyebrow{font-size:8px;letter-spacing:1.5px;margin-bottom:8px}
+.credential-band .current h2{font-size:21px;margin-right:0}
+.credential-band .current h2 br{display:none}
+@media(min-width:1500px){.hero{padding-top:72px;padding-bottom:60px}.hero-portrait{max-width:460px}}
+@media(min-width:761px) and (max-width:1000px){.hero{gap:40px;grid-template-columns:1.1fr 1fr}.hero-role{font-size:23px}.hero-description{font-size:14px}.credential-band{gap:20px}.credential-band .credential+.credential{padding-left:20px}.credential-band .credential h2{font-size:20px}.hero-portrait figcaption{font-size:7px;letter-spacing:1px}}
+@media(max-width:760px){.hero{grid-template-columns:1fr;gap:34px;padding-top:40px;padding-bottom:35px}.hero-portrait{max-width:420px;justify-self:center;width:calc(100% - 12px);margin-right:12px}.hero-portrait::before{top:12px;right:-12px}.hero-portrait figcaption{font-size:8px;letter-spacing:1px}.credential-band{grid-template-columns:1fr 1fr;gap:24px 20px;padding:26px 0 29px}.credential-band .credential{padding:0}.credential-band .credential+.credential{padding-left:20px}.credential-band .credential-date{float:none;margin:0 0 9px}.credential-band .credential h2{font-size:20px;margin-right:0}.credential-band .current{grid-column:1/-1;border-left:0;border-top:1px solid var(--line)!important;padding:21px 0 0!important}.credential-band .current .eyebrow{margin-bottom:8px}.credential-band .current p{padding-top:0}}
+@media print{.hero-portrait{max-width:190px}.hero-portrait::before,.hero-portrait figcaption{display:none}.hero{grid-template-columns:1.2fr 1fr;padding-top:0}.credential-band{padding:15px 0}}
