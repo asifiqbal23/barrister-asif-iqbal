@@ -5,10 +5,37 @@ const menu=$('.menu-toggle'),nav=$('#navigation');
 menu.addEventListener('click',()=>{const open=menu.getAttribute('aria-expanded')!=='true';menu.setAttribute('aria-expanded',String(open));nav.classList.toggle('open',open);});
 all('a',nav).forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('open');menu.setAttribute('aria-expanded','false');}));
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){nav.classList.remove('open');menu.setAttribute('aria-expanded','false');}});
-all('[role=tablist]').forEach(list=>{const tabs=all('[role=tab]',list);const activate=tab=>{tabs.forEach(t=>{const selected=t===tab;t.setAttribute('aria-selected',String(selected));t.tabIndex=selected?0:-1;$('#'+t.dataset.tab).hidden=!selected;});};tabs.forEach((t,i)=>{t.addEventListener('click',()=>activate(t));t.addEventListener('keydown',e=>{let next;if(e.key==='ArrowRight')next=(i+1)%tabs.length;if(e.key==='ArrowLeft')next=(i-1+tabs.length)%tabs.length;if(e.key==='Home')next=0;if(e.key==='End')next=tabs.length-1;if(next!==undefined){e.preventDefault();activate(tabs[next]);tabs[next].focus();}});});});
+all('[role=tablist]').forEach(list=>{const tabs=all('[role=tab]',list);const journal=list.classList.contains('journal-tabs');const activate=(tab,updateHash=false)=>{tabs.forEach(t=>{const selected=t===tab;t.setAttribute('aria-selected',String(selected));t.tabIndex=selected?0:-1;$('#'+t.dataset.tab).hidden=!selected;});if(journal){if(tab.dataset.tab!=='videos')all('.video-item').forEach(stopVideo);if(updateHash)history.replaceState(null,'','#'+tab.dataset.tab);}};tabs.forEach((t,i)=>{t.addEventListener('click',()=>activate(t,true));t.addEventListener('keydown',e=>{let next;if(e.key==='ArrowRight')next=(i+1)%tabs.length;if(e.key==='ArrowLeft')next=(i-1+tabs.length)%tabs.length;if(e.key==='Home')next=0;if(e.key==='End')next=tabs.length-1;if(next!==undefined){e.preventDefault();activate(tabs[next],true);tabs[next].focus();}});});if(journal){const syncHash=()=>{const tab=tabs.find(t=>'#'+t.dataset.tab===location.hash);if(tab)activate(tab);};syncHash();window.addEventListener('hashchange',syncHash);}});
 function timeline(rows){return rows.map(r=>`<div class="timeline-row"><div class="timeline-date">${escapeHtml(r[0])}</div><div><h3>${escapeHtml(r[1])}</h3><p>${escapeHtml(r[2])}</p></div></div>`).join('');}
 function safeUrl(raw){try{let u=new URL(raw,location.href);return ['https:','http:'].includes(u.protocol)?u.href:null;}catch{return null;}}
-fetch('profile.json?v=profile-3').then(r=>{if(!r.ok)throw Error('profile');return r.json();}).then(d=>{
+function stopVideo(article){const frame=$('iframe',article);if(frame)frame.remove();const poster=$('.video-poster',article);if(poster)poster.hidden=false;const close=$('.video-close',article);if(close)close.hidden=true;}
+function renderVideos(videos){
+ const panel=$('#videos');panel.replaceChildren();
+ if(!videos.length){panel.innerHTML='<div class="video-empty"><div class="play-icon" aria-hidden="true">▷</div><div><h3>Conversations to follow.</h3><p>New talks and video reflections will appear here.</p></div></div>';return;}
+ videos.forEach(v=>{
+  const url=safeUrl(v.url);if(!url)return;
+  const article=document.createElement('article');article.className='video-item';
+  const id=/^[A-Za-z0-9_-]{11}$/.test(v.youtubeId||'')?v.youtubeId:null;
+  article.innerHTML=`<div class="video-copy"><div class="eyebrow">${escapeHtml(v.category||'VIDEO COMMENTARY')}</div><h3>${escapeHtml(v.title)}</h3><p class="video-description">${escapeHtml(v.description||'')}</p><p class="video-meta">${escapeHtml(v.format==='short'?'YouTube Short':'Video')}${v.date?' · '+escapeHtml(v.date):''}</p><div class="video-actions"><a class="text-link" href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer" aria-label="Watch ${escapeHtml(v.title)} on YouTube (opens in a new tab)">Watch on YouTube ↗</a><button class="text-link video-close" type="button" hidden>Close player</button></div><a class="video-experience" href="#experience">Explore professional experience <span aria-hidden="true">↗</span></a></div>`;
+  if(id){
+   article.classList.add('video-feature');if(v.format==='short')article.classList.add('video-short');
+   const media=document.createElement('div');media.className='video-media';
+   const poster=document.createElement('button');poster.type='button';poster.className='video-poster';poster.setAttribute('aria-label','Play '+v.title);
+   poster.innerHTML=`<img src="https://i.ytimg.com/vi/${id}/hqdefault.jpg" alt="" loading="lazy" decoding="async"><span class="video-play" aria-hidden="true">▶</span><span class="video-play-label">Watch video</span>`;
+   $('img',poster).addEventListener('error',e=>{e.target.hidden=true;});
+   poster.addEventListener('click',()=>{
+    all('.video-item').forEach(stopVideo);
+    const iframe=document.createElement('iframe');iframe.src=`https://www.youtube.com/embed/${id}?autoplay=1&playsinline=1&rel=0`;iframe.title=v.title;iframe.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';iframe.allowFullscreen=true;iframe.referrerPolicy='strict-origin-when-cross-origin';
+    poster.hidden=true;media.append(iframe);$('.video-close',article).hidden=false;iframe.focus();
+   });
+   $('.video-close',article).addEventListener('click',()=>{stopVideo(article);poster.focus();});
+   media.append(poster);article.prepend(media);
+  }
+  panel.append(article);
+ });
+ if(location.hash==='#videos')$('#journal').scrollIntoView({block:'start'});
+}
+fetch('profile.json?v=video-1').then(r=>{if(!r.ok)throw Error('profile');return r.json();}).then(d=>{
  $('#summary').textContent=d.summary;
  $('#career').innerHTML=timeline(d.employment)+'<p class="secondments">Secondments through DKHA: Standard Chartered Bank — property (2023–2024); finance and banking products (2024–2026).</p>';
  $('#qualifications').innerHTML=timeline(d.qualifications);$('#education').innerHTML=timeline(d.education);
@@ -24,9 +51,7 @@ fetch('profile.json?v=profile-3').then(r=>{if(!r.ok)throw Error('profile');retur
  $('#work-search').addEventListener('input',e=>{query=e.target.value.trim().toLowerCase();limit=6;renderWork();});
  $('#show-more').addEventListener('click',()=>{const count=all('.matter').length;limit+=8;renderWork();const next=all('.matter summary')[count];if(next)next.focus();});renderWork();
  $('#writing').innerHTML=d.writing.map(x=>{const url=x.url?safeUrl(x.url):null;const body=`<div class="meta">${escapeHtml(x.type)} · ${escapeHtml(x.publisher)} · ${escapeHtml(x.date)}</div><h3>${escapeHtml(x.title)}</h3><p>${escapeHtml(x.description)}</p>`;return `<article class="writing-item">${url?`<a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer" aria-label="Read ${escapeHtml(x.title)} on ${escapeHtml(x.publisher)} (opens in a new tab)">${body}</a><a class="arrow" href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer" aria-label="Open article">↗</a>`:`<div>${body}</div><span></span>`}</article>`;}).join('');
- if(!d.videos.length){$('#videos').innerHTML='<div class="video-empty"><div class="play-icon" aria-hidden="true">▷</div><div><h3>Conversations to follow.</h3><p>New talks and video reflections will appear here.</p></div></div>';}else{
-  d.videos.forEach(v=>{const url=safeUrl(v.url);if(!url)return;const article=document.createElement('article');article.className='video-item';article.innerHTML=`<div class="eyebrow">${escapeHtml(v.date||'VIDEO')}</div><h3>${escapeHtml(v.title)}</h3><p>${escapeHtml(v.description||'')}</p>`;const a=document.createElement('a');a.href=url;a.textContent='Watch video ↗';a.className='text-link';a.target='_blank';a.rel='noopener noreferrer';article.append(a);$('#videos').append(article);});
- }
+ renderVideos(d.videos);
 }).catch(()=>{ $('#summary').textContent='Advocate of the Supreme Court of Bangladesh and Barrister-at-Law, Lincoln’s Inn. For the full professional profile, please download the CV.';$('#work-list').innerHTML='<p class="empty">The experience list could not load. Please refresh the page or download the CV.</p>';$('#show-more').hidden=true; });
 const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){all('a',nav).forEach(a=>{if(a.hash==='#'+e.target.id)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current');});}});},{rootMargin:'-15% 0px -65% 0px'});all('main section[id]').forEach(x=>observer.observe(x));
 

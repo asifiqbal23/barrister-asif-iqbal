@@ -286,7 +286,17 @@
       "url": ""
     }
   ],
-  "videos": [],
+  "videos": [
+    {
+      "title": "Why Most Legal Writing Fails (And How to Fix It)",
+      "description": "Asif Iqbal on clarity, structure and persuasion in legal writing—turning complex legal analysis into arguments readers can follow.",
+      "category": "Legal writing · Communication",
+      "date": "23 April 2026",
+      "format": "short",
+      "youtubeId": "HsXT1ldSB44",
+      "url": "https://www.youtube.com/shorts/HsXT1ldSB44"
+    }
+  ],
   "innovation": "Founder of Lexintell (2021), a Bangladesh legal database. Winner of the Bangladesh round of the Global Legal Hackathon (2022); portfolio startup under the ICT Division’s iDEA Project (2022).",
   "memberships": "Lincoln’s Inn (since 2017); Dhaka Bar Association and Dhaka Tax Bar Association (since 2021).",
   "languages": "Bangla (native); English (fluent)."
