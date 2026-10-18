@@ -21,8 +21,9 @@ function renderVideos(videos){
    article.classList.add('video-feature');if(v.format==='short')article.classList.add('video-short');
    const media=document.createElement('div');media.className='video-media';
    const poster=document.createElement('button');poster.type='button';poster.className='video-poster';poster.setAttribute('aria-label','Play '+v.title);
-   poster.innerHTML=`<img src="assets/asif-iqbal-portrait.jpg" alt="" width="1122" height="1402" loading="lazy" decoding="async"><span class="video-play-bar"><span class="video-play" aria-hidden="true">▶</span><span>Play video</span><span class="video-play-format">${v.format==='short'?'YouTube Short':'YouTube'}</span></span>`;
-   $('img',poster).addEventListener('error',e=>{e.target.hidden=true;});
+   const thumbnail=safeUrl(v.thumbnail||`https://img.youtube.com/vi/${id}/hqdefault.jpg`);
+   poster.innerHTML=`<img src="${escapeHtml(thumbnail)}" alt="" width="480" height="360" loading="lazy" decoding="async"><span class="video-play-bar"><span class="video-play" aria-hidden="true">▶</span><span>Play video</span><span class="video-play-format">${v.format==='short'?'YouTube Short':'YouTube'}</span></span>`;
+   $('img',poster).addEventListener('error',e=>{const img=e.target;if(!img.dataset.fallback){img.dataset.fallback='true';img.src=`https://img.youtube.com/vi/${id}/hqdefault.jpg`;}else img.hidden=true;});
    poster.addEventListener('click',()=>{
     all('.video-item').forEach(stopVideo);
     const iframe=document.createElement('iframe');iframe.src=`https://www.youtube.com/embed/${id}?autoplay=1&playsinline=1&rel=0`;iframe.title=v.title;iframe.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';iframe.allowFullscreen=true;iframe.referrerPolicy='strict-origin-when-cross-origin';
@@ -35,7 +36,7 @@ function renderVideos(videos){
  });
  if(['#videos','#writing'].includes(location.hash))$(location.hash).scrollIntoView({block:'start'});
 }
-fetch('profile.json?v=video-1').then(r=>{if(!r.ok)throw Error('profile');return r.json();}).then(d=>{
+fetch('profile.json?v=video-4').then(r=>{if(!r.ok)throw Error('profile');return r.json();}).then(d=>{
  $('#summary').textContent=d.summary;
  $('#career').innerHTML=timeline(d.employment)+'<p class="secondments">Secondments through DKHA: Standard Chartered Bank — property (2023–2024); finance and banking products (2024–2026).</p>';
  $('#qualifications').innerHTML=timeline(d.qualifications);$('#education').innerHTML=timeline(d.education);
