@@ -42,7 +42,8 @@ function renderVideos(videos){
  });
  if(['#videos','#writing'].includes(location.hash))$(location.hash).scrollIntoView({block:'start'});
 }
-fetch('profile.json?v=design-1').then(r=>{if(!r.ok)throw Error('profile');return r.json();}).then(d=>{
+Promise.all([fetch('profile.json?v=design-1').then(r=>{if(!r.ok)throw Error('profile');return r.json();}),fetch('writing/entries.json?v=1').then(r=>{if(!r.ok)throw Error('writing');return r.json();}).catch(()=>[])]).then(([d,articles])=>{
+ d.writing=[...articles,...d.writing];
  $('#summary').textContent=d.summary;
  $('#career').innerHTML=timeline(d.employment)+'<p class="secondments">Secondments through DKHA: Standard Chartered Bank — property (2023–2024); finance and banking products (2024–2026).</p>';
  $('#qualifications').innerHTML=timeline(d.qualifications);$('#education').innerHTML=timeline(d.education);
@@ -58,7 +59,7 @@ fetch('profile.json?v=design-1').then(r=>{if(!r.ok)throw Error('profile');return
  all('[data-filter]').forEach(b=>b.addEventListener('click',()=>{filter=b.dataset.filter;limit=6;all('[data-filter]').forEach(x=>{const active=x===b;x.classList.toggle('active',active);x.setAttribute('aria-pressed',String(active));});renderWork();}));
  $('#work-search').addEventListener('input',e=>{query=e.target.value.trim().toLowerCase();limit=6;renderWork();});
  $('#show-more').addEventListener('click',()=>{const count=all('.matter').length;limit+=8;renderWork();const next=all('.matter summary')[count];if(next)next.focus();});renderWork();
- $('#writing').innerHTML=d.writing.map(x=>{const url=x.url?safeUrl(x.url):null;const body=`<div class="meta">${escapeHtml(x.type)} · ${escapeHtml(x.publisher)} · ${escapeHtml(x.date)}</div><h3>${escapeHtml(x.title)}</h3><p>${escapeHtml(x.description)}</p>`;return `<article class="writing-item">${url?`<a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer" aria-label="Read ${escapeHtml(x.title)} on ${escapeHtml(x.publisher)} (opens in a new tab)">${body}</a><a class="arrow" href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer" aria-label="Open article">↗</a>`:`<div>${body}</div><span></span>`}</article>`;}).join('');
+ $('#writing').innerHTML=d.writing.map(x=>{const url=x.url?safeUrl(x.url):null;const external=url&&new URL(url).origin!==location.origin;const target=external?' target="_blank" rel="noopener noreferrer"':'';const body=`<div class="meta">${escapeHtml(x.type)} · ${escapeHtml(x.publisher)} · ${escapeHtml(x.date)}</div><h3>${escapeHtml(x.title)}</h3><p>${escapeHtml(x.description)}</p>`;return `<article class="writing-item">${url?`<a href="${escapeHtml(url)}" ${target} aria-label="Read ${escapeHtml(x.title)}${external?' (opens in a new tab)':''}">${body}</a><a class="arrow" href="${escapeHtml(url)}" ${target} aria-label="Read ${escapeHtml(x.title)}">↗</a>`:`<div>${body}</div><span></span>`}</article>`;}).join('');
  renderVideos(d.videos);
 }).catch(()=>{ $('#summary').textContent='Advocate of the Supreme Court of Bangladesh and Barrister-at-Law, Lincoln’s Inn. For the full professional profile, please download the CV.';$('#work-list').innerHTML='<p class="empty">The experience list could not load. Please refresh the page or download the CV.</p>';$('#show-more').hidden=true; });
 const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){all('a',nav).forEach(a=>{if(a.hash==='#'+e.target.id)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current');});}});},{rootMargin:'-15% 0px -65% 0px'});all('main section[id]').forEach(x=>observer.observe(x));
