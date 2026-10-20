@@ -24,25 +24,37 @@ function renderVideos(videos){
  const panel=$('#videos');panel.replaceChildren();
  if(!videos.length){panel.innerHTML='<div class="video-empty"><div class="play-icon" aria-hidden="true">▷</div><div><h3>Conversations to follow.</h3><p>New talks and video reflections will appear here.</p></div></div>';return;}
  videos.forEach(v=>{
-  const url=safeUrl(v.url);if(!url)return;
+  const versions=(Array.isArray(v.versions)?v.versions:[]).filter(version=>/^[A-Za-z0-9_-]{11}$/.test(version.youtubeId||'')&&safeUrl(version.url));
+  const featured=versions.length?{...v,...versions[0]}:v;
+  const url=safeUrl(featured.url);if(!url)return;
   const article=document.createElement('article');article.className='video-item';
-  const id=/^[A-Za-z0-9_-]{11}$/.test(v.youtubeId||'')?v.youtubeId:null;
+  const id=/^[A-Za-z0-9_-]{11}$/.test(featured.youtubeId||'')?featured.youtubeId:null;
   article.innerHTML=`<div class="video-copy"><div class="eyebrow">${escapeHtml(v.category||'VIDEO COMMENTARY')}</div><h4>${escapeHtml(v.title)}</h4><p class="video-description">${escapeHtml(v.description||'')}</p><p class="video-meta">${escapeHtml(v.format==='short'?'YouTube Short':'Video')}${v.date?' · '+escapeHtml(v.date):''}</p><div class="video-actions"><a class="text-link" href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer" aria-label="Watch ${escapeHtml(v.title)} on YouTube (opens in a new tab)">Watch on YouTube ↗</a></div><a class="video-experience" href="${escapeHtml(safeUrl(v.resourceUrl||'#experience'))}">${escapeHtml(v.resourceLabel||'Explore professional experience')} <span aria-hidden="true">↗</span></a></div>`;
   if(id){
    article.classList.add('video-feature');if(v.format==='short')article.classList.add('video-short');
    const media=document.createElement('div');media.className='video-media';
    const poster=document.createElement('button');poster.type='button';poster.className='video-poster';poster.setAttribute('aria-label','Play '+v.title);
-   const thumbnail=safeUrl(v.thumbnail||`https://img.youtube.com/vi/${id}/hqdefault.jpg`);
-   poster.innerHTML=`<img src="${escapeHtml(thumbnail)}" alt="" width="480" height="360" loading="lazy" decoding="async"><span class="video-play-bar"><span class="video-play" aria-hidden="true">▶</span><span>${v.duration?'Watch · '+escapeHtml(v.duration):'Play video'}</span><span class="video-play-format">${v.format==='short'?'YouTube Short':'YouTube'}</span></span>`;
+   const thumbnail=safeUrl(featured.thumbnail||`https://img.youtube.com/vi/${id}/hqdefault.jpg`);
+   poster.innerHTML=`<img src="${escapeHtml(thumbnail)}" alt="" width="480" height="360" loading="lazy" decoding="async"><span class="video-play-bar"><span class="video-play" aria-hidden="true">▶</span><span>${featured.duration?'Watch · '+escapeHtml(featured.duration):'Play video'}</span><span class="video-play-format">${v.format==='short'?'YouTube Short':'YouTube'}</span></span>`;
    $('img',poster).addEventListener('error',e=>{const img=e.target;if(!img.dataset.fallback){img.dataset.fallback='true';img.src=`https://img.youtube.com/vi/${id}/hqdefault.jpg`;}else img.hidden=true;});
-   poster.addEventListener('click',()=>openVideo(v,id,poster));
-   media.append(poster);article.prepend(media);
+   poster.addEventListener('click',()=>openVideo(featured,id,poster));
+   if(versions.length>1){
+    $('.video-actions',article).remove();
+    poster.setAttribute('aria-label','Play '+featured.title);
+    const languageLinks=document.createElement('div');languageLinks.className='video-language-actions';languageLinks.setAttribute('aria-label','Choose video language');
+    versions.forEach(version=>{
+     const link=document.createElement('a');link.className='text-link';link.href=safeUrl(version.url);link.target='_blank';link.rel='noopener noreferrer';link.textContent=version.label;link.lang=version.language||'en';link.setAttribute('aria-label','Watch '+(version.title||v.title)+' ('+version.label+')');
+     link.addEventListener('click',event=>{if(event.button!==0||event.metaKey||event.ctrlKey||event.shiftKey||event.altKey)return;event.preventDefault();openVideo({...v,...version},version.youtubeId,link);});languageLinks.append(link);
+    });
+    media.append(languageLinks);
+   }
+   media.prepend(poster);article.prepend(media);
   }
   panel.append(article);
  });
  if(['#videos','#writing'].includes(location.hash))$(location.hash).scrollIntoView({block:'start'});
 }
-Promise.all([fetch('profile.json?v=inheritance-video-20261020').then(r=>{if(!r.ok)throw Error('profile');return r.json();}),fetch('writing/entries.json?v=1').then(r=>{if(!r.ok)throw Error('writing');return r.json();}).catch(()=>[])]).then(([d,articles])=>{
+Promise.all([fetch('profile.json?v=bilingual-video-20261020').then(r=>{if(!r.ok)throw Error('profile');return r.json();}),fetch('writing/entries.json?v=1').then(r=>{if(!r.ok)throw Error('writing');return r.json();}).catch(()=>[])]).then(([d,articles])=>{
  d.writing=[...articles,...d.writing];
  $('#summary').textContent=d.summary;
  $('#career').innerHTML=timeline(d.employment)+'<p class="secondments">Secondments through DKHA: Standard Chartered Bank — property (2023–2024); finance and banking products (2024–2026).</p>';
@@ -77,3 +89,4 @@ if(professionalNotice&&typeof professionalNotice.showModal==='function'){
  let seen=false;try{seen=sessionStorage.getItem(noticeKey)==='seen';}catch{}
  if(!seen)professionalNotice.showModal();
 }
+
