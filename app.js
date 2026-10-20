@@ -27,7 +27,7 @@ function renderVideos(videos){
   const url=safeUrl(v.url);if(!url)return;
   const article=document.createElement('article');article.className='video-item';
   const id=/^[A-Za-z0-9_-]{11}$/.test(v.youtubeId||'')?v.youtubeId:null;
-  article.innerHTML=`<div class="video-copy"><div class="eyebrow">${escapeHtml(v.category||'VIDEO COMMENTARY')}</div><h4>${escapeHtml(v.title)}</h4><p class="video-description">${escapeHtml(v.description||'')}</p><p class="video-meta">${escapeHtml(v.format==='short'?'YouTube Short':'Video')}${v.date?' · '+escapeHtml(v.date):''}</p><div class="video-actions"><a class="text-link" href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer" aria-label="Watch ${escapeHtml(v.title)} on YouTube (opens in a new tab)">Watch on YouTube ↗</a></div><a class="video-experience" href="#experience">Explore professional experience <span aria-hidden="true">↗</span></a></div>`;
+  article.innerHTML=`<div class="video-copy"><div class="eyebrow">${escapeHtml(v.category||'VIDEO COMMENTARY')}</div><h4>${escapeHtml(v.title)}</h4><p class="video-description">${escapeHtml(v.description||'')}</p><p class="video-meta">${escapeHtml(v.format==='short'?'YouTube Short':'Video')}${v.date?' · '+escapeHtml(v.date):''}</p><div class="video-actions"><a class="text-link" href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer" aria-label="Watch ${escapeHtml(v.title)} on YouTube (opens in a new tab)">Watch on YouTube ↗</a></div><a class="video-experience" href="${escapeHtml(safeUrl(v.resourceUrl||'#experience'))}">${escapeHtml(v.resourceLabel||'Explore professional experience')} <span aria-hidden="true">↗</span></a></div>`;
   if(id){
    article.classList.add('video-feature');if(v.format==='short')article.classList.add('video-short');
    const media=document.createElement('div');media.className='video-media';
@@ -42,7 +42,7 @@ function renderVideos(videos){
  });
  if(['#videos','#writing'].includes(location.hash))$(location.hash).scrollIntoView({block:'start'});
 }
-Promise.all([fetch('profile.json?v=design-1').then(r=>{if(!r.ok)throw Error('profile');return r.json();}),fetch('writing/entries.json?v=1').then(r=>{if(!r.ok)throw Error('writing');return r.json();}).catch(()=>[])]).then(([d,articles])=>{
+Promise.all([fetch('profile.json?v=inheritance-video-20261020').then(r=>{if(!r.ok)throw Error('profile');return r.json();}),fetch('writing/entries.json?v=1').then(r=>{if(!r.ok)throw Error('writing');return r.json();}).catch(()=>[])]).then(([d,articles])=>{
  d.writing=[...articles,...d.writing];
  $('#summary').textContent=d.summary;
  $('#career').innerHTML=timeline(d.employment)+'<p class="secondments">Secondments through DKHA: Standard Chartered Bank — property (2023–2024); finance and banking products (2024–2026).</p>';
