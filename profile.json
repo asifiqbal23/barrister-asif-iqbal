@@ -1,6 +1,6 @@
 {
   "name": "Md Asif Iqbal",
-  "updated": "19 October 2026",
+  "updated": "20 October 2026",
   "email": "asif.iqbal.uel@gmail.com",
   "phone": "+880 1730 720784",
   "location": "Dhaka, Bangladesh",
@@ -287,6 +287,19 @@
     }
   ],
   "videos": [
+    {
+      "title": "Can Grandchildren Inherit in Bangladesh?",
+      "description": "A two-minute English guide to a grandchild’s inheritance, Bangladesh’s section 4 rule and the classical Hanafi comparison, followed by a walkthrough of the calculator’s shares, explanations and sources.",
+      "category": "Islamic inheritance · Calculator guide",
+      "date": "20 October 2026",
+      "format": "landscape",
+      "youtubeId": "FhUkxaSgXiQ",
+      "thumbnail": "https://i.ytimg.com/vi/FhUkxaSgXiQ/mqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=FhUkxaSgXiQ",
+      "duration": "2:12",
+      "resourceUrl": "inheritance/",
+      "resourceLabel": "Open inheritance calculator"
+    },
     {
       "title": "Why Most Legal Writing Fails (And How to Fix It)",
       "description": "Asif Iqbal on clarity, structure and persuasion in legal writing—turning complex legal analysis into arguments readers can follow.",
