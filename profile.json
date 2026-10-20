@@ -293,22 +293,13 @@
       "category": "Islamic inheritance · Calculator guide",
       "date": "20 October 2026",
       "format": "landscape",
-      "youtubeId": "BeDT4dHpffU",
-      "thumbnail": "assets/inheritance-thumbnail-bn-light.jpg",
-      "url": "https://www.youtube.com/watch?v=BeDT4dHpffU",
-      "duration": "2:43",
+      "youtubeId": "YrdAlVe3S8Y",
+      "thumbnail": "assets/inheritance-thumbnail-en-light.jpg",
+      "url": "https://www.youtube.com/watch?v=YrdAlVe3S8Y",
+      "duration": "2:12",
       "resourceUrl": "inheritance/",
       "resourceLabel": "Open inheritance calculator",
       "versions": [
-        {
-          "label": "বাংলা",
-          "language": "bn",
-          "title": "নাতি কি দাদার সম্পত্তি পাবে? | উত্তরাধিকার ক্যালকুলেটর (বাংলা)",
-          "youtubeId": "BeDT4dHpffU",
-          "url": "https://www.youtube.com/watch?v=BeDT4dHpffU",
-          "duration": "2:43",
-          "thumbnail": "assets/inheritance-thumbnail-bn-light.jpg"
-        },
         {
           "label": "English",
           "language": "en",
@@ -317,6 +308,15 @@
           "url": "https://www.youtube.com/watch?v=YrdAlVe3S8Y",
           "duration": "2:12",
           "thumbnail": "assets/inheritance-thumbnail-en-light.jpg"
+        },
+        {
+          "label": "বাংলা",
+          "language": "bn",
+          "title": "নাতি কি দাদার সম্পত্তি পাবে? | উত্তরাধিকার ক্যালকুলেটর (বাংলা)",
+          "youtubeId": "BeDT4dHpffU",
+          "url": "https://www.youtube.com/watch?v=BeDT4dHpffU",
+          "duration": "2:43",
+          "thumbnail": "assets/inheritance-thumbnail-bn-light.jpg"
         }
       ]
     },

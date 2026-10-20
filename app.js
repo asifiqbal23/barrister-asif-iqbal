@@ -54,7 +54,7 @@ function renderVideos(videos){
  });
  if(['#videos','#writing'].includes(location.hash))$(location.hash).scrollIntoView({block:'start'});
 }
-Promise.all([fetch('profile.json?v=bilingual-final-20261020').then(r=>{if(!r.ok)throw Error('profile');return r.json();}),fetch('writing/entries.json?v=1').then(r=>{if(!r.ok)throw Error('writing');return r.json();}).catch(()=>[])]).then(([d,articles])=>{
+Promise.all([fetch('profile.json?v=bilingual-en-first-20261020').then(r=>{if(!r.ok)throw Error('profile');return r.json();}),fetch('writing/entries.json?v=1').then(r=>{if(!r.ok)throw Error('writing');return r.json();}).catch(()=>[])]).then(([d,articles])=>{
  d.writing=[...articles,...d.writing];
  $('#summary').textContent=d.summary;
  $('#career').innerHTML=timeline(d.employment)+'<p class="secondments">Secondments through DKHA: Standard Chartered Bank — property (2023–2024); finance and banking products (2024–2026).</p>';
