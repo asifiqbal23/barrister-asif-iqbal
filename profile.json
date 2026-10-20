@@ -289,16 +289,36 @@
   "videos": [
     {
       "title": "Can Grandchildren Inherit in Bangladesh?",
-      "description": "A two-minute English guide to a grandchild’s inheritance, Bangladesh’s section 4 rule and the classical Hanafi comparison, followed by a walkthrough of the calculator’s shares, explanations and sources.",
+      "description": "A short guide in Bangla and English to a grandchild’s inheritance, Bangladesh’s section 4 rule and the classical Hanafi comparison, with a walkthrough of the calculator’s shares, explanations and sources.",
       "category": "Islamic inheritance · Calculator guide",
       "date": "20 October 2026",
       "format": "landscape",
-      "youtubeId": "YrdAlVe3S8Y",
-      "thumbnail": "https://i.ytimg.com/vi/YrdAlVe3S8Y/mqdefault.jpg",
-      "url": "https://www.youtube.com/watch?v=YrdAlVe3S8Y",
-      "duration": "2:12",
+      "youtubeId": "BeDT4dHpffU",
+      "thumbnail": "assets/inheritance-thumbnail-bn-light.jpg",
+      "url": "https://www.youtube.com/watch?v=BeDT4dHpffU",
+      "duration": "2:43",
       "resourceUrl": "inheritance/",
-      "resourceLabel": "Open inheritance calculator"
+      "resourceLabel": "Open inheritance calculator",
+      "versions": [
+        {
+          "label": "বাংলা",
+          "language": "bn",
+          "title": "নাতি কি দাদার সম্পত্তি পাবে? | উত্তরাধিকার ক্যালকুলেটর (বাংলা)",
+          "youtubeId": "BeDT4dHpffU",
+          "url": "https://www.youtube.com/watch?v=BeDT4dHpffU",
+          "duration": "2:43",
+          "thumbnail": "assets/inheritance-thumbnail-bn-light.jpg"
+        },
+        {
+          "label": "English",
+          "language": "en",
+          "title": "Can Grandchildren Inherit in Bangladesh? | Inheritance Calculator (English)",
+          "youtubeId": "YrdAlVe3S8Y",
+          "url": "https://www.youtube.com/watch?v=YrdAlVe3S8Y",
+          "duration": "2:12",
+          "thumbnail": "assets/inheritance-thumbnail-en-light.jpg"
+        }
+      ]
     },
     {
       "title": "Why Most Legal Writing Fails (And How to Fix It)",
